@@ -31,13 +31,14 @@ def main():
     file_area = ['data/dcorr_smpas_obstime_15.fits', 'data/lambda_sfd_ebv.fits']
 
     splus_tilles = os.path.join(_path,'data/splus_tiles.txt')
-
+    sn_tiles_file = '/Users/tiago/OneDrive/Documents/Documents/t80s/s-plus/sn2.txt'
     #
     # Reading data
     #
 
     map_area = np.array([H.read_map(os.path.join(_path, file_area[0])), ])
     pt_splus = np.loadtxt(splus_tilles, unpack=True, usecols=(1, 2))
+    sn_tiles = np.loadtxt(sn_tiles_file, unpack=True)
 
     for i in range(1, len(file_area)):
         map_area = np.append(map_area, np.array([H.read_map(os.path.join(_path, file_area[i])), ]), axis=0)
@@ -46,7 +47,10 @@ def main():
     # Plotting graph
     #
 
-    H.cartview(map_area[0], coord=['G', 'E'], cmap=cm.gray_r, cbar=False, notext=True,
+    # H.cartview(map_area[0], coord=['G', 'E'], cmap=cm.gray_r, cbar=False, notext=True,
+    #            title='S-PLUS Survey Area') #, max=1)
+
+    H.cartview(map_area[0], coord=['G', 'C'], cmap=cm.gray_r, cbar=False, notext=True,
                title='S-PLUS Survey Area') #, max=1)
 
     ####################################################################################################################
@@ -60,34 +64,62 @@ def main():
     #     # dec = np.zeros(100)+(90+20*np.sin(line))*np.pi/180.
     #     H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(35, -35, 100)) * np.pi / 180., '-',
     #                color='b', lw=1, alpha=0.2)
-
-    for line in np.arange(1, 15, 0.25):
-        H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(1, -35, 100)) * np.pi / 180., '-',
-                   color='m', lw=1) #, alpha=0.2)
-        H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(1, -35, 100)) * np.pi / 180., '-',
+    for line in np.arange(15, 45, 0.25):
+        # H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(1, -35, 100)) * np.pi / 180., '-',
+        #            color='m', lw=1) #, alpha=0.2)
+        H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(60., -60, 100)) * np.pi / 180., '-',
                    color='r', lw=1, alpha=0.2)
 
-    for line in np.arange(15, 30, 0.25):
-        H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(30, -45, 100)) * np.pi / 180., '-',
+    for line in np.arange(45, 75, 0.25):
+        # H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(1, -35, 100)) * np.pi / 180., '-',
+        #            color='m', lw=1) #, alpha=0.2)
+        H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(70., -70, 100)) * np.pi / 180., '-',
                    color='r', lw=1, alpha=0.2)
 
-    for line in np.arange(30, 60, 0.25):
-        H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(40, -60, 100)) * np.pi / 180., '-',
-                   color='r', lw=1, alpha=0.2)
+    ######
+    # for line in np.arange(15, 35, 0.25):
+    #     # H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(1, -35, 100)) * np.pi / 180., '-',
+    #     #            color='m', lw=1) #, alpha=0.2)
+    #     H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(0., -30, 100)) * np.pi / 180., '-',
+    #                color='r', lw=1, alpha=0.2)
+    # for line in np.arange(35, 55, 0.25):
+    #     # H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(1, -35, 100)) * np.pi / 180., '-',
+    #     #            color='m', lw=1) #, alpha=0.2)
+    #     H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(0., -60, 100)) * np.pi / 180., '-',
+    #                color='r', lw=1, alpha=0.2)
+    # for line in np.arange(20, 55, 0.25):
+    #     # H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(1, -35, 100)) * np.pi / 180., '-',
+    #     #            color='m', lw=1) #, alpha=0.2)
+    #     H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(0., 22.5, 100)) * np.pi / 180., '-',
+    #                color='r', lw=1, alpha=0.2)
+    # for line in np.arange(20, 60, 0.25):
+    #     # H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(1, -35, 100)) * np.pi / 180., '-',
+    #     #            color='m', lw=1) #, alpha=0.2)
+    #     H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(22.5, 60, 100)) * np.pi / 180., '-',
+    #                color='r', lw=1, alpha=0.2)
+    ######
 
-    for line in np.arange(60, 80, 0.25):
-        H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(80, -80, 100)) * np.pi / 180., '-',
-                   color='r', lw=1, alpha=0.2)
+    # for line in np.arange(15, 60, 0.25):
+    #     H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(45, -75, 100)) * np.pi / 180., '-',
+    #                color='r', lw=1, alpha=0.2)
 
-    ra = np.linspace(-180*np.pi/180.,-150*np.pi/180.,100.)
-    dec = np.zeros(100)+(90+20*np.sin(ra))*np.pi/180.
-    for line in np.arange(-4.,4.,0.25):
-        H.projplot(dec+line * np.pi/180.,ra,'-',color='m',lw=2.)
+    # for line in np.arange(30, 60, 0.25):
+    #     H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(40, -60, 100)) * np.pi / 180., '-',
+    #                color='r', lw=1, alpha=0.2)
 
-    ra = np.linspace(150*np.pi/180.,180*np.pi/180.,100.)
-    dec = np.zeros(100)+(90+20*np.sin(ra))*np.pi/180.
-    for line in np.arange(-4.,4.,0.25):
-        H.projplot(dec+line * np.pi/180.,ra,'-',color='m',lw=2.)
+    # for line in np.arange(60, 80, 0.25):
+    #     H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(80, -80, 100)) * np.pi / 180., '-',
+    #                color='r', lw=1, alpha=0.2)
+
+    # ra = np.linspace(-180*np.pi/180.,-150*np.pi/180.,100.)
+    # dec = np.zeros(100)+(90+20*np.sin(ra))*np.pi/180.
+    # for line in np.arange(-4.,4.,0.25):
+    #     H.projplot(dec+line * np.pi/180.,ra,'-',color='m',lw=2.)
+    #
+    # ra = np.linspace(150*np.pi/180.,180*np.pi/180.,100.)
+    # dec = np.zeros(100)+(90+20*np.sin(ra))*np.pi/180.
+    # for line in np.arange(-4.,4.,0.25):
+    #     H.projplot(dec+line * np.pi/180.,ra,'-',color='m',lw=2.)
 
     # for ra in np.linspace(-35 * np.pi / 180.,35 * np.pi / 180.,30.):
     #     dec = (90+20*np.sin(ra))*np.pi/180.
@@ -106,7 +138,7 @@ def main():
     #
     # S-PLUS Northern part
     #
-    for line in np.arange(-20, 25, 0.5):
+    for line in np.arange(-10, 40, 0.5):
         H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(150, 180, 100)) * np.pi / 180., '-',
                    color='r', lw=2, alpha=0.2)
         # H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(-157.5, -180, 100)) * np.pi / 180., '-',
@@ -114,31 +146,46 @@ def main():
     # for line in np.arange(-15, 0, 0.5):
     #     H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(157.5,180, 100)) * np.pi / 180., '-',
     #                color='r', lw=2, alpha=0.9)
-    for line in np.arange(-30, 15, 0.5):
-        H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(-150,-180, 100)) * np.pi / 180., '-',
+
+    # for line in np.arange(-5., 0, 0.5):
+    #     H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(-120,-160, 100)) * np.pi / 180., '-',
+    #                color='r', lw=2, alpha=0.2)
+
+    for line in np.arange(-10., 40, 0.5):
+        H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(-142.5,-180, 100)) * np.pi / 180., '-',
                    color='r', lw=2, alpha=0.2)
 
-    l_start = [-10,210]
-    l_end = [-60,260]
+    # for line in np.arange(30., 40, 0.5):
+    #     H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(-165,-120., 100)) * np.pi / 180., '-',
+    #                color='r', lw=2, alpha=0.2)
 
-    brange = [0.5,2,5,8,10,12]
-
+    l_start = [-12,210]
+    l_end = [12,260]
+    #
+    # # brange = [0.5,2,5,8,10,12]
+    brange = np.arange(-10, 10)
+    #
     for b in brange:
-        H.projplot(np.zeros(100.) + (90.-b) * np.pi / 180.,
-                   np.linspace(l_start[0] * np.pi / 180., l_end[0] * np.pi / 180., 100),
-                   'r-',lw=1,alpha=0.8,coord=['G','E'])
+        for il in range(len(l_start)):
+            H.projplot(np.zeros(100.) + (90.-b) * np.pi / 180.,
+                       np.linspace(l_start[il] * np.pi / 180., l_end[il] * np.pi / 180., 100),
+                       'r-',lw=1,alpha=0.8,coord=['G','E'])
 
-        H.projplot(np.zeros(100.) + (90.+b) * np.pi / 180.,
-                   np.linspace(l_start[0] * np.pi / 180., l_end[0] * np.pi / 180., 100),
-                   'r-',lw=1,alpha=0.8,coord=['G','E'])
-
-        H.projplot(np.zeros(100.) + (90.-b) * np.pi / 180.,
-                   np.linspace(l_start[1] * np.pi / 180., l_end[1] * np.pi / 180., 100),
-                   'r-',lw=1,alpha=0.8,coord=['G','E'])
-
-        H.projplot(np.zeros(100.) + (90.+b) * np.pi / 180.,
-                   np.linspace(l_start[1] * np.pi / 180., l_end[1] * np.pi / 180., 100),
-                   'r-',lw=1,alpha=0.8,coord=['G','E'])
+        # H.projplot(np.zeros(100.) + (90.-b) * np.pi / 180.,
+        #            np.linspace(l_start[0] * np.pi / 180., l_end[0] * np.pi / 180., 100),
+        #            'r-',lw=1,alpha=0.8,coord=['G','E'])
+        #
+        # H.projplot(np.zeros(100.) + (90.+b) * np.pi / 180.,
+        #            np.linspace(l_start[0] * np.pi / 180., l_end[0] * np.pi / 180., 100),
+        #            'r-',lw=1,alpha=0.8,coord=['G','E'])
+        #
+        # H.projplot(np.zeros(100.) + (90.-b) * np.pi / 180.,
+        #            np.linspace(l_start[1] * np.pi / 180., l_end[1] * np.pi / 180., 100),
+        #            'r-',lw=1,alpha=0.8,coord=['G','E'])
+        #
+        # H.projplot(np.zeros(100.) + (90.+b) * np.pi / 180.,
+        #            np.linspace(l_start[1] * np.pi / 180., l_end[1] * np.pi / 180., 100),
+        #            'r-',lw=1,alpha=0.8,coord=['G','E'])
 
     # H.projplot(np.zeros(100.) + 85. * np.pi / 180.,
     #            np.linspace(-10. * np.pi / 180., -30. * np.pi / 180., 100),
@@ -164,8 +211,58 @@ def main():
     #            np.linspace(170. * np.pi / 180., 150. * np.pi / 180., 100),
     #            'r-',lw=2,alpha=0.2,coord=['G','E'])
 
+    H.projplot((90 - sn_tiles[1]) * np.pi / 180., sn_tiles[0] * np.pi / 180., 's', color='r', alpha=0.8,
+               coord='E')  #,coord=['E','G'])
+
+    H.graticule()
+    # py.show()
+    #
+    # return 0
+
     # END S-PLUS
     ####################################################################################################################
+    # ATLAS
+
+    for line in np.arange(10, 40, 1.5):
+        H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(-37.5, 60, 100)) * np.pi / 180., ':',
+                   color='g', lw=2, alpha=0.9)
+    H.projplot((90 - np.zeros(100) + 42) * np.pi / 180., (np.linspace(-37.5, 61, 100)) * np.pi / 180., '-', color='g',
+               lw=3)
+    H.projplot((90 - np.zeros(100) + 10) * np.pi / 180., (np.linspace(-37.5, 61, 100)) * np.pi / 180., '-', color='g',
+               lw=2)
+    H.projplot((90 - np.linspace(-40, -10, 100)) * np.pi / 180., (np.zeros(100) + 62) * np.pi / 180., '-', color='g',
+               lw=3)
+    H.projplot((90 - np.linspace(-40, -10, 100)) * np.pi / 180., (np.zeros(100) - 37.5) * np.pi / 180., '-', color='g',
+               lw=2)
+
+    for line in np.arange(2, 29, 1.5):
+        H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(150, 180, 100)) * np.pi / 180., ':',
+                   color='g', lw=2, alpha=0.9)
+        if line < 20:
+            H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(-180, -127.5, 100)) * np.pi / 180., ':',
+                       color='g', lw=2, alpha=0.9)
+        else:
+            H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(-180, -135, 100)) * np.pi / 180., ':',
+                       color='g', lw=2, alpha=0.9)
+
+    H.projplot((90 - np.zeros(100) + 29) * np.pi / 180., (np.linspace(150, 180, 100)) * np.pi / 180., '-', color='g',
+               lw=2)
+    H.projplot((90 - np.zeros(100) + 20) * np.pi / 180., (np.linspace(-135, -127.5, 100)) * np.pi / 180., '-',
+               color='g', lw=2)
+    H.projplot((90 - np.zeros(100) + 29) * np.pi / 180., (np.linspace(-180, -135., 100)) * np.pi / 180., '-', color='g',
+               lw=2)
+
+    H.projplot((90 - np.zeros(100) + 2) * np.pi / 180., (np.linspace(150, 180, 100)) * np.pi / 180., '-', color='g',
+               lw=2)
+    H.projplot((90 - np.zeros(100) + 2) * np.pi / 180., (np.linspace(-180, -127.5, 100)) * np.pi / 180., '-', color='g',
+               lw=2)
+
+    H.projplot((90 - np.linspace(-29, -2, 100)) * np.pi / 180., (np.zeros(100) + 150) * np.pi / 180., '-', color='g',
+               lw=2)
+    H.projplot((90 - np.linspace(-20, -2, 100)) * np.pi / 180., (np.zeros(100) - 127.5) * np.pi / 180., '-', color='g',
+               lw=2)
+    H.projplot((90 - np.linspace(-29, -20, 100)) * np.pi / 180., (np.zeros(100) - 135) * np.pi / 180., '-', color='g',
+               lw=2)
 
     # H.projplot((90 - pt_splus[1]) * np.pi / 180., pt_splus[0] * np.pi / 180., 's', color='r', alpha=0.8,
     #            coord='E')  #,coord=['E','G'])
@@ -179,10 +276,10 @@ def main():
     #
     # py.savefig(os.path.expanduser('~/Desktop/figure_01.pdf'))
     #
-    py.savefig(os.path.expanduser('~/Desktop/figure_01.pdf'))
-    py.show()
-
-    return 0
+    # py.savefig(os.path.expanduser('~/Desktop/figure_01.pdf'))
+    # py.show()
+    #
+    # return 0
 
     ####################################################################################################################
     # Vista
@@ -199,7 +296,7 @@ def main():
                                       np.linspace(-10. * np.pi / 180., 10. * np.pi / 180., 100)),
                             np.zeros(100) - 10. * np.pi / 180.),
                   np.linspace(-10. * np.pi / 180., 10. * np.pi / 180., 100))
-    H.projplot(b,l,'w-',lw=2,coord=['G','E'])
+    H.projplot(b,l,'-',color="0.5",lw=2,coord=['G','E'])
 
     #
     ## VVV Disk
@@ -214,7 +311,7 @@ def main():
                                       np.linspace(-10. * np.pi / 180., -65. * np.pi / 180., 100)),
                             np.zeros(100) - 65. * np.pi / 180.),
                   np.linspace(-65. * np.pi / 180., -10. * np.pi / 180., 100))
-    H.projplot(b,l,'w-',lw=2,coord=['G','E'])
+    H.projplot(b,l,'-',color="0.5",lw=2,coord=['G','E'])
 
 
     ##################################
@@ -324,48 +421,6 @@ def main():
     # py.show()
     #
     # return 0
-    # ATLAS
-
-    for line in np.arange(10, 40, 1.5):
-        H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(-37.5, 60, 100)) * np.pi / 180., ':',
-                   color='g', lw=2, alpha=0.9)
-    H.projplot((90 - np.zeros(100) + 42) * np.pi / 180., (np.linspace(-37.5, 61, 100)) * np.pi / 180., '-', color='g',
-               lw=3)
-    H.projplot((90 - np.zeros(100) + 10) * np.pi / 180., (np.linspace(-37.5, 61, 100)) * np.pi / 180., '-', color='g',
-               lw=2)
-    H.projplot((90 - np.linspace(-40, -10, 100)) * np.pi / 180., (np.zeros(100) + 62) * np.pi / 180., '-', color='g',
-               lw=3)
-    H.projplot((90 - np.linspace(-40, -10, 100)) * np.pi / 180., (np.zeros(100) - 37.5) * np.pi / 180., '-', color='g',
-               lw=2)
-
-    for line in np.arange(2, 29, 1.5):
-        H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(150, 180, 100)) * np.pi / 180., ':',
-                   color='g', lw=2, alpha=0.9)
-        if line < 20:
-            H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(-180, -127.5, 100)) * np.pi / 180., ':',
-                       color='g', lw=2, alpha=0.9)
-        else:
-            H.projplot((90 - np.zeros(100) + line) * np.pi / 180., (np.linspace(-180, -135, 100)) * np.pi / 180., ':',
-                       color='g', lw=2, alpha=0.9)
-
-    H.projplot((90 - np.zeros(100) + 29) * np.pi / 180., (np.linspace(150, 180, 100)) * np.pi / 180., '-', color='g',
-               lw=2)
-    H.projplot((90 - np.zeros(100) + 20) * np.pi / 180., (np.linspace(-135, -127.5, 100)) * np.pi / 180., '-',
-               color='g', lw=2)
-    H.projplot((90 - np.zeros(100) + 29) * np.pi / 180., (np.linspace(-180, -135., 100)) * np.pi / 180., '-', color='g',
-               lw=2)
-
-    H.projplot((90 - np.zeros(100) + 2) * np.pi / 180., (np.linspace(150, 180, 100)) * np.pi / 180., '-', color='g',
-               lw=2)
-    H.projplot((90 - np.zeros(100) + 2) * np.pi / 180., (np.linspace(-180, -127.5, 100)) * np.pi / 180., '-', color='g',
-               lw=2)
-
-    H.projplot((90 - np.linspace(-29, -2, 100)) * np.pi / 180., (np.zeros(100) + 150) * np.pi / 180., '-', color='g',
-               lw=2)
-    H.projplot((90 - np.linspace(-20, -2, 100)) * np.pi / 180., (np.zeros(100) - 127.5) * np.pi / 180., '-', color='g',
-               lw=2)
-    H.projplot((90 - np.linspace(-29, -20, 100)) * np.pi / 180., (np.zeros(100) - 135) * np.pi / 180., '-', color='g',
-               lw=2)
 
     # SPT
 
